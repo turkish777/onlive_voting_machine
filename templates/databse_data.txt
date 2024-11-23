@@ -1,0 +1,46 @@
+CREATE DATABASE IF NOT EXISTS online_voting;
+USE online_voting;
+
+
+
+SET GLOBAL wait_timeout = 600;
+SET GLOBAL interactive_timeout = 600;
+SET GLOBAL net_read_timeout = 600;
+SET GLOBAL net_write_timeout = 600;
+
+
+CREATE TABLE Users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    father_name VARCHAR(50),
+    cnic varchar(13) unique not null ,
+    email VARCHAR(50),
+    password VARCHAR(255) NOT NULL,
+    gender ENUM('male', 'female', 'other'),
+    role ENUM('user', 'admin') DEFAULT 'user'
+);
+
+
+
+CREATE TABLE Candidates (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+     picture_url VARCHAR(527),
+    name VARCHAR(50) NOT NULL,
+    party VARCHAR(50) NOT NULL,
+    votes INT DEFAULT 0
+);
+
+
+CREATE TABLE Votes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    candidate_id INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES Users(id),
+    FOREIGN KEY (candidate_id) REFERENCES Candidates(id)
+);
+
+
+
+select * from Users;
+select * from Candidates;
+select * from Votes;

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow-lg border-0">
+        <div class="card-header text-center bg-primary text-white">
+            <h2>User Profile</h2>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <!-- Profile Information Section -->
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <tbody>
+                                <tr>
+                                    <td><strong>Name</strong></td>
+                                    <td>{{ user['name'] }}</td> <!-- Correct position for Name -->
+                                </tr>
+                                <tr>
+                                    <td><strong>CNIC</strong></td>
+                                    <td>{{ user['cnic'] }}</td> <!-- Correct position for CNIC -->
+                                </tr>
+                                <tr>
+                                    <td><strong>Father's Name</strong></td>
+                                    <td>{{ user['father_name'] }}</td> <!-- Correct position for Father's Name -->
+                                </tr>
+                                <tr>
+                                    <td><strong>Gender</strong></td>
+                                    <td>{{ user['gender'] }}</td> <!-- Correct position for Gender -->
+                                </tr>
+                                <tr>
+                                    <td><strong>Role</strong></td>
+                                    <td>{{ user['role'] | capitalize }}</td> <!-- Correct position for Role -->
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

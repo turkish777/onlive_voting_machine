@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow-lg border-0">
+        <div class="card-header text-center bg-primary text-white">
+            <h2>Users Data</h2>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Father's Name</th>
+                                    <th>CNIC</th>
+                                    <th>Gender</th>
+                                    <th>Party Voted</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for user in users %}
+                                <tr>
+                                    <td>{{ user.name }}</td>
+                                    <td>{{ user.father_name }}</td>
+                                    <td>{{ user.cnic }}</td>
+                                    <td>{{ user.gender }}</td>
+                                    <td>{{ user.party_voted }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

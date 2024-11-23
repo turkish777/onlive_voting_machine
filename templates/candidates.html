@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="text-center my-4">Candidates</h2>
+<div class="row">
+    {% if candidates %}
+    {% for candidate in candidates %}
+    <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+            <img src="{{ candidate.picture_url }}" class="card-img-top img-fluid rounded-top" alt="{{ candidate.name }}"
+                style="height: 250px; object-fit: cover;">
+            <div class="card-body text-center">
+                <h5 class="card-title">{{ candidate.name }}</h5>
+                <p class="card-text">Party: {{ candidate.party }}</p>
+
+                <!-- Display vote count only for admin users -->
+                {% if session.get('role') == 'admin' %}
+                <p class="card-text">Votes: {{ candidate.votes }}</p>
+                {% endif %}
+
+                <!-- Conditional Voting Button or Login Link -->
+                {% if session.get('user_id') %}
+                <form method="post" action="{{ url_for('vote') }}">
+                    <input type="hidden" name="candidate_id" value="{{ candidate.id }}">
+                    <button type="submit" class="btn btn-success w-100">Vote</button>
+                </form>
+                {% else %}
+                <p><a href="{{ url_for('login') }}" class="btn btn-primary w-100">Login to vote</a></p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <p class="text-center">No candidates available.</p>
+    {% endif %}
+</div>
+{% endblock %}

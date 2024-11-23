@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Voting System</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .navbar {
+            background-color: #000000;
+        }
+
+        .navbar-brand,
+        .nav-link {
+            color: #ffffff !important;
+            transition: color 0.3s ease, background-color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #ff0000 !important;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+        }
+
+        .home-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+            text-align: center;
+            background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+            color: #fff8f8;
+        }
+
+        .home-card {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            max-width: 700px;
+            width: 100%;
+        }
+
+        .home-heading {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #000000;
+        }
+
+        .lead {
+            color: #000000;
+        }
+
+        .btn-primary {
+            background-color: #130a0a;
+            border-color: #ffffff;
+            padding: 10px 20px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 10px;
+        }
+
+        .btn-primary:hover {
+            background-color: #ff0101;
+            border-color: #000000;
+        }
+
+        #flash-messages {
+            max-width: 400px;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="{{ url_for('home') }}">OVM -System</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('home') }}">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('candidates') }}">Candidates</a></li>
+            
+                {% if session.get('user_id') %}
+                    {% if session.get('role') == 'admin' %}
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('users_data') }}">Users Data</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('admin') }}">Admin Panel</a></li>
+                    {% else %}
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('user_page') }}">User Profile</a></li>
+                    {% endif %}
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Logout</a></li>
+                {% else %}
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('register') }}">Register</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">Login</a></li>
+                {% endif %}
+            </ul>
+            
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div id="flash-messages">
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        {% block content %}
+        <div class="home-content">
+            <div class="home-card">
+                <h1 class="home-heading">Welcome to Online Voting Management System!</h1>
+                <p class="lead">Your voice matters! Log in or register to participate in the voting process.</p>
+                <a href="{{ url_for('candidates') }}" class="btn btn-primary mt-3">View Candidates</a>
+            </div>
+        </div>
+        {% endblock %}
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            setTimeout(function () {
+                $('#flash-messages .alert').alert('close');
+            }, 10000);
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mt-5">Admin Control Panel</h1>
+
+    <!-- Link to View User Data -->
+    <a href="{{ url_for('users_data') }}" class="btn btn-info mb-3">View Users Data</a>
+
+    <!-- Form to Add Candidate -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="card-title mb-0">Add New Candidate</h5>
+        </div>
+        <div class="card-body">
+            <form method="post" action="{{ url_for('add_candidate') }}">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Candidate Name</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="party" class="form-label">Party Name</label>
+                    <input type="text" class="form-control" id="party" name="party" required>
+                </div>
+                <div class="mb-3">
+                    <label for="picture_url" class="form-label">Picture URL</label>
+                    <input type="text" class="form-control" id="picture_url" name="picture_url" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Add Candidate</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Candidate List -->
+    <h3 class="mt-4">Candidate List</h3>
+    <div class="row">
+        {% for candidate in candidates %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                {% if candidate.picture_url %}
+                <img src="{{ candidate.picture_url }}" class="card-img-top" alt="{{ candidate.name }}"
+                    style="height: 200px; object-fit: cover;">
+                {% else %}
+                <img src="https://via.placeholder.com/200" class="card-img-top" alt="No image available"
+                    style="height: 200px; object-fit: cover;">
+                {% endif %}
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">{{ candidate.name }}</h5>
+                    <p class="card-text">Party: {{ candidate.party }}</p>
+                    <div class="mt-auto">
+                        <!-- Form to Delete Candidate -->
+                        <form method="post" action="{{ url_for('delete_candidate', candidate_id=candidate.id) }}"
+                            style="display:inline;">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+
+</div>
+{% endblock %}
