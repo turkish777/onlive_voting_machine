@@ -70,6 +70,10 @@ def login():
         cnic = request.form['cnic']
         password = request.form['password']
 
+        if len(cnic) != 13 or not cnic.isdigit():
+            flash("CNIC must be exactly 13 digits long.", "danger")
+            return redirect(url_for('login'))
+
         try:
             conn = get_db_connection()
             cursor = conn.cursor(dictionary=True)
@@ -98,6 +102,7 @@ def login():
             if conn:
                 conn.close()
     return render_template('login.html')
+
 
 @app.route('/logout')
 def logout():
