@@ -1,38 +1,40 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container mt-5">
-    <h2 class="text-center mb-4">Register</h2>
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <form method="post" action="{{ url_for('register') }}">
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" class="form-control" id="name" name="name" autocomplete="off" required>
-                </div>
-                <div class="form-group">
-                    <label for="cnic">CNIC (Wothout Spaces)</label>
-                    <input type="text" class="form-control" id="cnic" name="cnic" maxlength="13" autocomplete="off" required>
-                </div>
-                <div class="form-group">
-                    <label for="father_name">Father's Name</label>
-                    <input type="text" class="form-control" id="father_name" name="father_name" autocomplete="off" required>
-                </div>
-                <div class="form-group">
-                    <label for="gender">Gender</label>
-                    <select class="form-control" id="gender" name="gender" required>
-                        <option value="">Select Gender</option>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                        <option value="Other">Other</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter at leat 6 digits" autocomplete="off" required>
-                </div>
-                <button type="submit" class="btn btn-primary btn-block">Register</button>
-            </form>
+<div class="register-page">
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Register</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <form method="post" action="{{ url_for('register') }}">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" autocomplete="off" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cnic">CNIC (Without Spaces)</label>
+                        <input type="text" class="form-control" id="cnic" name="cnic" maxlength="13" autocomplete="off" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="father_name">Father's Name</label>
+                        <input type="text" class="form-control" id="father_name" name="father_name" autocomplete="off" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="gender">Gender</label>
+                        <select class="form-control" id="gender" name="gender" required>
+                            <option value="">Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Enter at least 6 characters" autocomplete="new-password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Register</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>

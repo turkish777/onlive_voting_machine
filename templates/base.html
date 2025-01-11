@@ -7,6 +7,12 @@
     <title>Online Voting System</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+        }
+
         .navbar {
             background-color: #000000;
         }
@@ -27,29 +33,24 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 80vh;
+            height: 100vh;
+            /* Ensure the content takes up the full screen */
             text-align: center;
-            background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+            background: url('{{ url_for('static', filename='vote.webp') }}') no-repeat center center fixed;
+            background-size: cover;
             color: #fff8f8;
-        }
-
-        .home-card {
-            background: #ffffff;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            max-width: 700px;
-            width: 100%;
+            padding: 0 5%;
         }
 
         .home-heading {
-            font-size: 2.8rem;
+            font-size: 3.5rem;
             font-weight: 700;
-            color: #000000;
+            color: #ff0202;
+            animation: fadeInLeft 2s ease-in-out;
         }
-
-        .lead {
-            color: #000000;
+        .lead_home{
+            color: black;
+            background-color:rgba(212, 75, 75, 0.1);
         }
 
         .btn-primary {
@@ -70,6 +71,93 @@
             max-width: 400px;
             margin: 20px auto;
         }
+
+        .register-page {
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .register-page .container {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            color: black;
+        }
+
+        .login-page {
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            min-height: 50vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .login-page .container {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            color: black;
+            border-width: 2px;
+        }
+
+        @keyframes fadeInLeft {
+            0% {
+                opacity: 0;
+                transform: translateX(-100px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            0% {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes changeText {
+            0% {
+                opacity: 0;
+            }
+
+            5% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+
+            95% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 
@@ -85,21 +173,20 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item"><a class="nav-link" href="{{ url_for('home') }}">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ url_for('candidates') }}">Candidates</a></li>
-            
+
                 {% if session.get('user_id') %}
-                    {% if session.get('role') == 'admin' %}
-                        <li class="nav-item"><a class="nav-link" href="{{ url_for('users_data') }}">Users Data</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ url_for('admin') }}">Admin Panel</a></li>
-                    {% else %}
-                        <li class="nav-item"><a class="nav-link" href="{{ url_for('user_page') }}">User Profile</a></li>
-                    {% endif %}
-                    <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Logout</a></li>
+                {% if session.get('role') == 'admin' %}
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('users_data') }}">Users Data</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('admin') }}">Admin Panel</a></li>
                 {% else %}
-                    <li class="nav-item"><a class="nav-link" href="{{ url_for('register') }}">Register</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">Login</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('user_page') }}">User Profile</a></li>
+                {% endif %}
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Logout</a></li>
+                {% else %}
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('register') }}">Register</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">Login</a></li>
                 {% endif %}
             </ul>
-            
         </div>
     </nav>
 
@@ -121,10 +208,10 @@
 
         {% block content %}
         <div class="home-content">
-            <div class="home-card">
+            <div>
                 <h1 class="home-heading">Welcome to Online Voting Management System!</h1>
-                <p class="lead">Your voice matters! Log in or register to participate in the voting process.</p>
-                <a href="{{ url_for('candidates') }}" class="btn btn-primary mt-3">View Candidates</a>
+                <p class="lead_home">Your voice matters! Log in or register to participate in the voting process.</p>
+                <a href="{{ url_for('candidates') }}" class="btn btn-primary">View Candidates</a>
             </div>
         </div>
         {% endblock %}
@@ -134,9 +221,12 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         $(document).ready(function () {
-            setTimeout(function () {
-                $('#flash-messages .alert').alert('close');
-            }, 10000);
+            setInterval(function () {
+                $('.home-heading').css('animation', 'fadeOut 2s ease-in-out');
+                setTimeout(function () {
+                    $('.home-heading').css('animation', 'fadeInLeft 2s ease-in-out');
+                }, 2000);
+            }, 5000);
         });
     </script>
 </body>
