@@ -7,8 +7,8 @@ app.secret_key = 'your_secret_key'
 
 def get_db_connection():
     return mysql.connector.connect(
-        host="", # add uour database host
-        user="", # add your database password 
+        host="localhost", # add uour database host
+        user="root", # add your database password 
         password="turkish777",
         database="online_voting"
     )
