@@ -2,6 +2,7 @@ body,
 html {
     height: 100%;
     margin: 0;
+    font-family: 'Arial', sans-serif;
 }
 
 .navbar {
@@ -25,40 +26,46 @@ html {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    /* Ensure the content takes up the full screen */
     text-align: center;
     background: url('vote.webp') no-repeat center center fixed;
     background-size: cover;
-    color: #fff8f8;
+    color: #fff;
     padding: 0 5%;
+    filter: brightness(0.6);
 }
 
 .home-heading {
-    font-size: 3.5rem;
+    font-size: 4rem;
     font-weight: 700;
     color: #ff0202;
     animation: fadeInLeft 2s ease-in-out;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .lead_home {
-    color: rgb(255, 255, 255);
-    background-color: rgba(212, 75, 75, 0.1);
+    color: #fff;
+    background-color: rgba(212, 75, 75, 0.3);
     display: inline-block;
-    padding: 0 10px;
+    padding: 0 15px;
+    font-size: 1.25rem;
+    margin-top: 20px;
+    border-radius: 10px;
 }
 
 .btn-primary {
     background-color: #130a0a;
     border-color: #ffffff;
-    padding: 10px 20px;
-    font-size: 1.1rem;
+    padding: 12px 25px;
+    font-size: 1.2rem;
     font-weight: bold;
     border-radius: 10px;
+    transition: background-color 0.3s, transform 0.3s;
 }
 
 .btn-primary:hover {
     background-color: #ff0101;
     border-color: #000000;
+    transform: scale(1.1);
 }
 
 #flash-messages {
@@ -122,20 +129,6 @@ html {
     100% {
         opacity: 1;
         transform: translateX(0);
-    }
-}
-
-@keyframes changeText {
-    0% {
-        opacity: 0;
-    }
-
-    5% {
-        opacity: 1;
-    }
-
-    100% {
-        opacity: 1;
     }
 }
 

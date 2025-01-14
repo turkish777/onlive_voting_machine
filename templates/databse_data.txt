@@ -1,28 +1,24 @@
 CREATE DATABASE IF NOT EXISTS online_voting;
 USE online_voting;
 
-
 CREATE TABLE Users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
     father_name VARCHAR(50),
-    cnic int(13) unique not null ,
-    email VARCHAR(50),
+    cnic BIGINT UNIQUE NOT NULL, 
     password VARCHAR(255) NOT NULL,
-    gender ENUM('male', 'female', 'other'),
-    role ENUM('user', 'admin') DEFAULT 'user'
+    gender ENUM('male', 'female', 'other')
 );
 
-
+ALTER TABLE Users DROP COLUMN role;
 
 CREATE TABLE Candidates (
     id INT AUTO_INCREMENT PRIMARY KEY,
-	picture_url VARCHAR(527),
     name VARCHAR(50) NOT NULL,
     party VARCHAR(50) NOT NULL,
+	picture_url VARCHAR(527),
     votes INT DEFAULT 0
 );
-
 
 CREATE TABLE Votes (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -31,14 +27,3 @@ CREATE TABLE Votes (
     FOREIGN KEY (user_id) REFERENCES Users(id),
     FOREIGN KEY (candidate_id) REFERENCES Candidates(id)
 );
-
-
-
-
-
-
-
-
-
-
-
