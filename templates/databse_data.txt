@@ -16,7 +16,7 @@ CREATE TABLE Candidates (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
     party VARCHAR(50) NOT NULL,
-	picture_url VARCHAR(527),
+    picture_url VARCHAR(527),
     votes INT DEFAULT 0
 );
 
